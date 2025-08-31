@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 350px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #444;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #2575fc;
+      box-shadow: 0 0 5px rgba(37,117,252,0.6);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: #2575fc;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #6a11cb;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Student Registration</h2>
+
+    <form onsubmit="submitForm(event)">
+      <!-- Name -->
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <!-- Enrollment Number -->
+      <label for="enroll">Enrollment Number</label>
+      <input type="text" id="enroll" name="enroll" placeholder="Enter enrollment no." required>
+
+      <!-- Gender -->
+      <label>Gender</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+
+      <!-- Course -->
+      <label for="course">Course</label>
+      <select id="course" name="course">
+        <option value="CO">CO</option>
+        <option value="CE">CE</option>
+        <option value="ME">ME</option>
+        <option value="EE">EE</option>
+        <option value="EJ">EJ</option>
+        <option value="AI">AI</option>
+      </select>
+
+      <!-- Submit -->
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        enroll: document.getElementById("enroll").value,
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        course: document.getElementById("course").value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbzpq6-lDhQFicohTXfyDBYw4hrmoIa6ZM0A4ApbH9CsNbMAB8HZAM2Yd1HOscA8XHS06w/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        alert(" Form submitted successfully!");
+        document.querySelector("form").reset();
+      })
+      .catch(err => alert(" Error submitting form!"));
+    }
+  </script>
+</body>
+</html>
